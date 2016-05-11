@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test</title>
+</head>
+<body>
+  <div>
+    <p>Work Load</p>
+    <input type="text">
+  </div>
+  <div class="single">
+    <p>Time elapsed   <button id="masterBtn" type="button">Go Master!</button></p>
+    <br>
+    <span></span>
+    <br>
+  </div>
+  <div class="multi">
+    <p>Time elapsed   <button id="slaveBtn" type="button">Go Slaves!</button></p>
+    <br>
+    <span></span>
+    <br>
+  </div>
+  <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+  <script>
+    $(function() {
+      $('#masterBtn').on('click', function(e){
+        var count = $('input').val() - 1;
+        console.log('trigger');
+        e.preventDefault();
+        var start = Date.now();
+        var end;
+        for(var i = 0; i < count; i++){
+          $.get('http://127.0.0.1:8001/', function(data){});
+        }
+        $.get('http://127.0.0.1:8001/', function(data){
+          end = Date.now();
+          console.log(end - start);
+          $('.single span').html((end - start).toString() + 'ms');
+        });
+      });
+      
+      $('#slaveBtn').on('click', function(e){
+        var count = $('input').val() - 1;
+        console.log('trigger');
+        e.preventDefault();
+        var start = Date.now();
+        var end;
+        for(var i = 0; i < count; i++){
+          $.get('http://127.0.0.1:8000/', function(data){});
+        }
+        $.get('http://127.0.0.1:8000/', function(data){
+          end = Date.now();
+          console.log(end - start);
+          $('.multi span').html((end - start).toString() + 'ms');
+        });
+      });
+    });
+  </script>  
+</body>
+</html>
